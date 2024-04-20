@@ -61,11 +61,17 @@ namespace FigureToolsLib_Tests
             var toolType = "tool";
             var factory = new ConcreteFactory(toolType);
             var strategy = new ConcreteStrategy(toolType);
-            var figure = new ConcreteFigure();
+
+            var strategiesStartCount = factory.GetToolsCount();
+            var expectedStartCount = 0;
+
+            Assert.Equal(expectedStartCount, strategiesStartCount);
 
             factory.AddTool(strategy);
+            var strategiesEndCount = factory.GetToolsCount();
+            var expectedEndCount = 1;
 
-            Assert.Equivalent(strategy, factory.GetTool(figure));
+            Assert.Equal(expectedEndCount, strategiesEndCount);
         }
 
         [Fact]
@@ -75,10 +81,17 @@ namespace FigureToolsLib_Tests
             var icnorrectToolType = "incorrectTool";
             var factory = new ConcreteFactory(toolType);
             var strategy = new ConcreteStrategy(icnorrectToolType);
-            var figure = new ConcreteFigure();
-            factory.AddTool(strategy);
 
-            Assert.Null(factory.GetTool(figure));
+            var strategiesStartCount = factory.GetToolsCount();
+            var expectedStartCount = 0;
+
+            Assert.Equal(expectedStartCount, strategiesStartCount);
+
+            factory.AddTool(strategy);
+            var strategiesEndCount = factory.GetToolsCount();
+            var expectedEndCount = 0;
+
+            Assert.Equal(expectedEndCount, strategiesEndCount);
         }
 
         [Fact]
@@ -88,12 +101,23 @@ namespace FigureToolsLib_Tests
             var factory = new ConcreteFactory(toolType);
             var strategy1 = new ConcreteStrategy(toolType);
             var strategy2 = new SameStrategy(toolType);
-            var figure = new ConcreteFigure();
-            factory.AddTool(strategy1);
-            factory.AddTool(strategy2);
 
-            Assert.NotEqual(factory.GetTool(figure), strategy2);
-            Assert.Equal(strategy1, factory.GetTool(figure));
+            var strategiesStartCount = factory.GetToolsCount();
+            var expectedStartCount = 0;
+
+            Assert.Equal(expectedStartCount, strategiesStartCount);
+
+            factory.AddTool(strategy1);
+            var strategiesSecondCount = factory.GetToolsCount();
+            var expectedSecondCount = 1;
+
+            Assert.Equal(expectedSecondCount, strategiesSecondCount);
+
+            factory.AddTool(strategy2);
+            var strategiesEndCount = factory.GetToolsCount();
+            var expectedEndCount = 1;
+
+            Assert.Equal(expectedEndCount, strategiesEndCount);
         }
     }
 }

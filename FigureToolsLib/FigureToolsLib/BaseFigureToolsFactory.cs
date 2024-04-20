@@ -10,7 +10,7 @@ namespace FigureToolsLib;
 /// <typeparam name="TResult"></typeparam>
 public abstract class BaseFigureToolsFactory<TResult> : IFigureToolsFactory<TResult>
 {
-    private Dictionary<Type, IFigureTool<TResult>> _strategies = new();
+    protected Dictionary<Type, IFigureTool<TResult>> _strategies = new();
     private readonly string _toolType;
 
     public BaseFigureToolsFactory(string toolType)
